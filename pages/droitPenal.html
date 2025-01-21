@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Avocat en droit pénal au Havre, spécialisé dans les affaires de mandat de dépôt, bracelet électronique, et sortie de prison.">
+    <meta name="keywords" content="droit pénal Le Havre, avocat pénaliste Havre, sortie de prison, mandat de dépôt, bracelet électronique">
+    <title>Droit Pénal - Avocat au Havre</title>
+    <link href="css/materialize.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <?php include 'header.php'; ?>
+
+    <main>
+        <div class="container">
+            <h1 class="center">Avocat en Droit Pénal au Havre</h1>
+            <p>Située au Havre, Anne-Sophie Noël est spécialisée en droit pénal et vous accompagne dans toutes vos démarches, que ce soit pour :</p>
+            <ul>
+                <li>Sortie de prison et aménagement de peine</li>
+                <li>Mandat de dépôt et défense en garde à vue</li>
+                <li>Mise en place de bracelet électronique</li>
+                <li>Assistance devant les tribunaux correctionnels ou de police</li>
+            </ul>
+            <p>Notre cabinet met tout en œuvre pour défendre vos droits avec réactivité et professionnalisme.</p>
+        </div>
+
+        <div class="container">
+            <h2 class="center">Pourquoi choisir notre cabinet ?</h2>
+            <p>En tant qu'avocat pénaliste au barreau du Havre, Anne-Sophie Noël propose une expertise reconnue et une approche humaine pour vous accompagner dans les moments difficiles.</p>
+        </div>
+
+        <div id="map"></div>
+    </main>
+
+    <?php include 'footer.php'; ?>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script>
+      function initMap() {
+        var location = { lat: 49.491866, lng: 0.116483 };
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 17,
+          center: location,
+        });
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+        });
+      }
+    </script>
+</body>
+
+</html>

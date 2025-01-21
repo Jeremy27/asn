@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Anne-Sophie Noël - Avocat au barreau du Havre</title>
-        <meta name="description" content="Avocat généraliste située près du palais de justice. 
+        <meta name="description" content="Avocat en droit pénal située près du palais de justice. 
               Tél : 06 52 96 71 79
               Mail : noel-avocat@outlook.fr" />
 
@@ -190,34 +190,46 @@
         <!--  Scripts-->
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="js/materialize.min.js"></script>
-        <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
         <script src="js/init.js"></script>
         <script>
-            map = new OpenLayers.Map("map");
-            map.addLayer(new OpenLayers.Layer.OSM());
+            function initMap() {
+                var geocoder = new google.maps.Geocoder(); // Crée une instance de Geocoder
+                var map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 17, // Niveau de zoom
+                    center: {lat: 49.491866, lng: 0.116483}, // Coordonnées par défaut
+                });
 
-            var pois = new OpenLayers.Layer.Text("My Points",
-                    {location: "./textfile.txt",
-                        projection: map.displayProjection
-                    });
-            map.addLayer(pois);
-            // create layer switcher widget in top right corner of map.
-            var layer_switcher = new OpenLayers.Control.LayerSwitcher({});
-            map.addControl(layer_switcher);
-            //Set start centrepoint and zoom    
-            var lonLat = new OpenLayers.LonLat(0.116482973098755, 49.4918661676403)
-                    .transform(
-                            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                            map.getProjectionObject() // to Spherical Mercator Projection
-                            );
-            var zoom = 17;
-            map.setCenter(lonLat, zoom);
+                // Adresse à localiser
+                var address = "29 Avenue du Général Archinard, 76600 Le Havre, France";
 
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                maxNativeZoom: 19, // OSM max available zoom is at 19.
-                maxZoom: 22 // Match the map maxZoom, or leave map.options.maxZoom undefined.
-            }).addTo(map);
+                // Géocodage de l'adresse
+                geocoder.geocode({address: address}, function (results, status) {
+                    if (status === "OK") {
+                        // Centre la carte sur l'adresse trouvée
+                        map.setCenter(results[0].geometry.location);
 
+                        // Place un marqueur sur l'adresse
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location,
+                            title: "Anne-Sophie NOEL, Avocat en droit pénal"
+                        });
+                        var infowindow = new google.maps.InfoWindow({
+                            content: '<h5>Anne-Sophie NOEL</h5><p>Avocat en droit pénal</p>',
+                        });
+                        marker.addListener("click", function () {
+                            infowindow.open(map, marker);
+                        });
+                    } else {
+                        alert("Le géocodage a échoué pour la raison suivante : " + status);
+                    }
+                });
+            }
+
+        </script>
+
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqZH2SIs06tE1v6ujTcp-iQkjI3_vPiBQ&callback=initMap">
         </script>
     </body>
 
